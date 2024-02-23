@@ -7,3 +7,7 @@ public interface IEnemy
     void Die();
     void TakeDamage(float damage);
 }
+public interface IEnemyCombat
+{
+    void Attack();
+}

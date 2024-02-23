@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyScpOBJ", menuName = "ScriptableObjects/EnemyScpOBJ", order = 1)]
 public class EnemyScpOBJ : ScriptableObject
 {
-    public Enemytypes Type;
+    public GameObject Type;
     public float Health;
     public float Speed;
 }

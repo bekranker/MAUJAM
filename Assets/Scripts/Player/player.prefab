@@ -103,10 +103,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rb: {fileID: 2476576754733549173}
   _moveSpeed: 7.92
-  _jumpForce: 11.8
-  _moveInput: 11.12
-  accelaration: 51.9
-  deccelaration: 2.75
+  _jumpForce: 3
+  _moveInput: 0
+  accelaration: 80
+  deccelaration: 75
   velPower: 0.7
   lastGroundedTime: 0.45
   frictionAmount: 0.66
@@ -114,6 +114,9 @@ MonoBehaviour:
   lastJumpTime: 1.36
   isJumping: 0
   jumpInputReleased: 0
+  jumpBufferTime: 0.21
+  jumpCoyoteTime: 0.3
+  jumpCutMultiplier: 0.4
 --- !u!50 &2476576754733549173
 Rigidbody2D:
   serializedVersion: 4

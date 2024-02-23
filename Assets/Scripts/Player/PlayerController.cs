@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
         if (_rb.velocity.y > 0 && isJumping)
         {
             _rb.AddForce(Vector2.down * _rb.velocity.y * (1 - jumpCutMultiplier), ForceMode2D.Impulse);
-
         }
         jumpInputReleased = true;
         lastJumpTime = 0;
@@ -42,31 +41,26 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         _moveInput = Input.GetAxis("Horizontal");
-        if(_grounded.IsGrounded()) 
+        if(_grounded.IsGrounded())
         {
             lastGroundedTime = jumpCoyoteTime;
-            isJumping = false;
         }
         else
         {
             lastGroundedTime -= Time.deltaTime;
-            
         }
-        if(Input.GetKeyDown(KeyCode.W))
+        if(Input.GetKeyDown(KeyCode.W) && jumpInputReleased)
         {
             if(lastGroundedTime>=0)
             {
-
                 jump();
             }
-          
         }
-        if(Input.GetKey(KeyCode.W)) 
+        if(Input.GetKeyUp(KeyCode.W))
         {
             OnJumpUp();
         }
-
-
+        isJumping = Input.GetKey(KeyCode.W) && !_grounded.IsGrounded();
     }
     public void OnJump()
     {
@@ -74,7 +68,6 @@ public class PlayerController : MonoBehaviour
     }
     private void jump()
     {
-        OnJump();
         _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
         lastGroundedTime = 0;
         lastJumpTime = 0;

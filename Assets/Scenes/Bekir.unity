@@ -854,6 +854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b812bd08d055b7419ef1920ffd11ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemies: []
 --- !u!1 &1934010988
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,8 +923,16 @@ PrefabInstance:
       value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 2532052810779061618, guid: be0324faaac4cc043b0ddf8b10bb26b5, type: 3}
+      propertyPath: jumpBufferTime
+      value: 0.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532052810779061618, guid: be0324faaac4cc043b0ddf8b10bb26b5, type: 3}
       propertyPath: jumpCoyoteTime
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532052810779061618, guid: be0324faaac4cc043b0ddf8b10bb26b5, type: 3}
+      propertyPath: jumpCutMultiplier
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 3761630123804013034, guid: be0324faaac4cc043b0ddf8b10bb26b5, type: 3}
       propertyPath: m_LocalPosition.x
