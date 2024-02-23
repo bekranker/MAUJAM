@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpCutMultiplier;
     [SerializeField] private float gravityScale;
     [SerializeField] private float fallGravityMultiplier;
+    [SerializeField] private float normalGravity;
 
 
     private Grounded _grounded;
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _grounded = GetComponent<Grounded>();
+        _rb.gravityScale = normalGravity;
 
     }
     public void OnJumpUp()
@@ -44,11 +46,11 @@ public class PlayerController : MonoBehaviour
     {
         if(_rb.velocity.y<0)
         {
-            _rb.gravityScale = gravityScale * fallGravityMultiplier;
+            _rb.gravityScale = fallGravityMultiplier;
         }
         else
         {
-            _rb.gravityScale = gravityScale;
+            _rb.gravityScale = normalGravity;
         }
         _moveInput = Input.GetAxis("Horizontal");
         if(_grounded.IsGrounded())
