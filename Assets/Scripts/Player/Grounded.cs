@@ -22,6 +22,6 @@ public class Grounded : MonoBehaviour
     }
     public bool IsGrounded()
     {
-        return Physics2D.OverlapBox(CheckPoint.position, CheckSize, 0, Layer);
+        return Physics2D.OverlapBox(CheckPoint.position, CheckSize, 0, Layer)!=null;
     }
 }

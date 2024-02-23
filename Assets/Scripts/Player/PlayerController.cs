@@ -14,10 +14,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float lastGroundedTime;
     [SerializeField] private float frictionAmount;
     [SerializeField] private float InputHandler;
+    [SerializeField] private float lastJumpTime;
+    [SerializeField] private bool isJumping;
+    [SerializeField] private bool jumpInputReleased;
     public bool Grounded;
     private void Update()
     {
         _moveInput = Input.GetAxis("Horizontal");
+    }
+    private void jump()
+    {
+        _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+        lastGroundedTime = 0;
+        lastJumpTime = 0;
+        isJumping = true;
+        jumpInputReleased = false;
     }
     private void FixedUpdate()
     {
