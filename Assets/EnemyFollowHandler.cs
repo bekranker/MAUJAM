@@ -22,7 +22,7 @@ public class EnemyFollowHandler : MonoBehaviour
 
     void Follow()
     {
-        if (SameHeight() || PGrounded())
+        if ((SameHeight() || PGrounded()) && Distance())
         {
             print("follow");
             transform.position = Vector2.MoveTowards(transform.position, _target.position, _enemyManager.enemyScpOBJ.Speed * Time.deltaTime);
@@ -40,6 +40,6 @@ public class EnemyFollowHandler : MonoBehaviour
     bool PGrounded() => _player.GetComponent<Grounded>().IsGrounded();
     bool Distance()
     {
-        return Vector2.Distance(transform.position, _target.position) > 0.5f;
+        return Vector2.Distance(transform.position, _target.position) > 1;
     }
 }
