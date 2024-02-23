@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool jumpInputReleased;
     [SerializeField] private float jumpBufferTime;
     [SerializeField] private float jumpCoyoteTime;
+    [SerializeField] private float jumpCutMultiplier;
 
 
     private Grounded _grounded;
@@ -28,12 +29,23 @@ public class PlayerController : MonoBehaviour
         _grounded = GetComponent<Grounded>();
 
     }
+    public void OnJumpUp()
+    {
+        if (_rb.velocity.y > 0 && isJumping)
+        {
+            _rb.AddForce(Vector2.down * _rb.velocity.y * (1 - jumpCutMultiplier), ForceMode2D.Impulse);
+
+        }
+        jumpInputReleased = true;
+        lastJumpTime = 0;
+    }
     private void Update()
     {
         _moveInput = Input.GetAxis("Horizontal");
         if(_grounded.IsGrounded()) 
         {
             lastGroundedTime = jumpCoyoteTime;
+            isJumping = false;
         }
         else
         {
@@ -44,10 +56,17 @@ public class PlayerController : MonoBehaviour
         {
             if(lastGroundedTime>=0)
             {
+
                 jump();
             }
+          
         }
-        
+        if(Input.GetKey(KeyCode.W)) 
+        {
+            OnJumpUp();
+        }
+
+
     }
     public void OnJump()
     {
@@ -55,7 +74,7 @@ public class PlayerController : MonoBehaviour
     }
     private void jump()
     {
-
+        OnJump();
         _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
         lastGroundedTime = 0;
         lastJumpTime = 0;
