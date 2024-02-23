@@ -5,8 +5,35 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rb;
-    [SerializeField] private float _speed;
+    [SerializeField] private float _moveSpeed;
     [SerializeField] private float _jumpForce;
+    [SerializeField] private float _moveInput;
+    [SerializeField] private float accelaration;
+    [SerializeField] private float deccelaration;
+    [SerializeField] private float velPower;
+    [SerializeField] private float lastGroundedTime;
+    [SerializeField] private float frictionAmount;
+    [SerializeField] private float InputHandler;
+    public bool Grounded;
+    private void Update()
+    {
+        _moveInput = Input.GetAxis("Horizontal");
+    }
+    private void FixedUpdate()
+    {
+       // _rb.velocity= new Vector2(_moveInput * _moveSpeed, _rb.velocity.y);
+       float targetSpeed =_moveInput* _moveSpeed;
+       float speedDif = targetSpeed - _rb.velocity.x;
+       float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? accelaration : deccelaration;
+       float movement =Mathf.Pow(Mathf.Abs(speedDif) * accelRate,velPower)* Mathf.Sign(speedDif);
+       _rb.AddForce(movement * Vector2.right);
 
-
+       if(lastGroundedTime>0 && Mathf.Abs(_moveInput)< 0.01f)
+       {
+            float amount= Mathf.Min(Mathf.Abs(_rb.velocity.x),Mathf.Abs(frictionAmount));
+            amount *= Mathf.Sign(_rb.velocity.x);
+            _rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
+       }
+    }
+    
 }
