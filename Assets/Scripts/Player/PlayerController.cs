@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpBufferTime;
     [SerializeField] private float jumpCoyoteTime;
     [SerializeField] private float jumpCutMultiplier;
+    [SerializeField] private float gravityScale;
+    [SerializeField] private float fallGravityMultiplier;
 
 
     private Grounded _grounded;
@@ -40,6 +42,14 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        if(_rb.velocity.y<0)
+        {
+            _rb.gravityScale = gravityScale * fallGravityMultiplier;
+        }
+        else
+        {
+            _rb.gravityScale = gravityScale;
+        }
         _moveInput = Input.GetAxis("Horizontal");
         if(_grounded.IsGrounded())
         {
