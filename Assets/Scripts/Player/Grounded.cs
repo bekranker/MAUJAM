@@ -9,19 +9,14 @@ public class Grounded : MonoBehaviour
     [SerializeField] private float CheckRadius;
     [SerializeField] private LayerMask Layer;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
     public bool IsGrounded()
     {
         return Physics2D.OverlapBox(CheckPoint.position, CheckSize, 0, Layer)!=null;
+    }
+    public GameObject MyGround()
+    {
+        Collider2D col = Physics2D.OverlapBox(CheckPoint.position, CheckSize, 0, Layer);
+        return col != null ? col.gameObject : null;
     }
 }
