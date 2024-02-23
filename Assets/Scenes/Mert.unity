@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 699337814}
   - component: {fileID: 699337813}
   - component: {fileID: 699337812}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,11 +506,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 1715771568}
-  _moveSpeed: 5.86
+  _moveSpeed: 7.92
   _jumpForce: 11.8
   _moveInput: 11.12
-  accelaration: 50
-  deccelaration: 1.59
+  accelaration: 51.9
+  deccelaration: 2.75
   velPower: 0.7
   lastGroundedTime: 0.45
   frictionAmount: 0.66
@@ -675,7 +675,7 @@ MonoBehaviour:
   CheckRadius: 0.5
   Layer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!1 &2124290105
 GameObject:
   m_ObjectHideFlags: 0
