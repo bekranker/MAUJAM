@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
             amount *= Mathf.Sign(_rb.velocity.x);
             _rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
        }
+
     }
     
 }
