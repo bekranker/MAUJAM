@@ -7,11 +7,14 @@ public class EnemyFollowHandler : MonoBehaviour
     private EnemyManager _enemyManager;
     private Transform _target;
     private PlayerController _player;
+    private Grounded _grounded;
     [SerializeField] private LayerMask _layerMask;
 
     void Start()
     {
         _enemyManager = GetComponent<EnemyManager>();
+        _grounded = GetComponent<Grounded>();
+
         _player = FindObjectOfType<PlayerController>();
         _target = _player.transform;
     }
@@ -37,7 +40,7 @@ public class EnemyFollowHandler : MonoBehaviour
         return hit2DRight.collider != null || hit2DLeft.collider != null;
     }
     //Grounded scriptinden cekilecek
-    bool PGrounded() => _player.GetComponent<Grounded>().IsGrounded();
+    bool PGrounded() => _player.GetComponent<Grounded>().MyGround() == _grounded.MyGround();
     bool Distance()
     {
         return Vector2.Distance(transform.position, _target.position) > 1;

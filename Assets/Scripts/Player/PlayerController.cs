@@ -40,13 +40,14 @@ public class PlayerController : MonoBehaviour
             lastGroundedTime -= Time.deltaTime;
             
         }
-        if(lastGroundedTime>0)
+        if(Input.GetKeyDown(KeyCode.W))
         {
-            if(Input.GetKeyDown(KeyCode.W))
+            if(lastGroundedTime>=0)
             {
                 jump();
             }
         }
+        
     }
     public void OnJump()
     {
@@ -54,8 +55,7 @@ public class PlayerController : MonoBehaviour
     }
     private void jump()
     {
-        if (!_grounded.IsGrounded())
-            return;
+
         _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
         lastGroundedTime = 0;
         lastJumpTime = 0;
