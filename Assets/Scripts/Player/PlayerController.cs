@@ -17,26 +17,45 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float lastJumpTime;
     [SerializeField] private bool isJumping;
     [SerializeField] private bool jumpInputReleased;
+    [SerializeField] private float jumpBufferTime;
+    [SerializeField] private float jumpCoyoteTime;
+
+
     private Grounded _grounded;
 
     void Start()
     {
         _grounded = GetComponent<Grounded>();
+
     }
     private void Update()
     {
         _moveInput = Input.GetAxis("Horizontal");
-        if(Input.GetKeyDown(KeyCode.W))
+        if(_grounded.IsGrounded()) 
         {
-            jump();
+            lastGroundedTime = jumpCoyoteTime;
         }
+        else
+        {
+            lastGroundedTime -= Time.deltaTime;
+            
+        }
+        if(lastGroundedTime>0)
+        {
+            if(Input.GetKeyDown(KeyCode.W))
+            {
+                jump();
+            }
+        }
+    }
+    public void OnJump()
+    {
+        lastJumpTime = jumpBufferTime;
     }
     private void jump()
     {
         if (!_grounded.IsGrounded())
             return;
-
-        
         _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
         lastGroundedTime = 0;
         lastJumpTime = 0;
