@@ -8,10 +8,12 @@ public class EnemyFollowHandler : MonoBehaviour
     private Transform _target;
     private PlayerController _player;
     private Grounded _grounded;
+    private Rigidbody2D _rb;
     [SerializeField] private LayerMask _layerMask;
 
     void Start()
     {
+        _rb = GetComponent<Rigidbody2D>();
         _enemyManager = GetComponent<EnemyManager>();
         _grounded = GetComponent<Grounded>();
 
@@ -25,11 +27,14 @@ public class EnemyFollowHandler : MonoBehaviour
 
     void Follow()
     {
-        if ((SameHeight() || PGrounded()) && Distance())
+        if (SameHeight() && PGrounded() && Distance())
         {
+            float direction = _target.position.x - transform.position.x;
             print("follow");
-            transform.position = Vector2.MoveTowards(transform.position, _target.position, _enemyManager.enemyScpOBJ.Speed * Time.deltaTime);
+            _rb.velocity = Vector2.right * Mathf.Sign(direction) * 100 * _enemyManager.enemyScpOBJ.Speed * Time.deltaTime;
         }
+        else if (_grounded.IsGrounded())
+            _rb.velocity = Vector2.zero;
     }
     bool SameHeight()
     {

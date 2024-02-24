@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _jumpForce;
-    [SerializeField] private float _moveInput;
+    private float _moveInput;
     [SerializeField] private float accelaration;
     [SerializeField] private float deccelaration;
     [SerializeField] private float velPower;
@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpBufferTime;
     [SerializeField] private float jumpCoyoteTime;
     [SerializeField] private float jumpCutMultiplier;
-
 
     private Grounded _grounded;
 
@@ -40,7 +39,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        _moveInput = Input.GetAxis("Horizontal");
+        _moveInput = Input.GetAxisRaw("Horizontal");
         if(_grounded.IsGrounded())
         {
             lastGroundedTime = jumpCoyoteTime;
@@ -49,18 +48,18 @@ public class PlayerController : MonoBehaviour
         {
             lastGroundedTime -= Time.deltaTime;
         }
-        if(Input.GetKeyDown(KeyCode.W) && jumpInputReleased)
+        if(Input.GetButtonDown("Jump"))
         {
             if(lastGroundedTime>=0)
             {
                 jump();
             }
         }
-        if(Input.GetKeyUp(KeyCode.W))
+        if(Input.GetButtonUp("Jump"))
         {
             OnJumpUp();
         }
-        isJumping = Input.GetKey(KeyCode.W) && !_grounded.IsGrounded();
+        isJumping = Input.GetButton("Jump") && !_grounded.IsGrounded();
     }
     public void OnJump()
     {
