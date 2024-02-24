@@ -21,11 +21,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpCoyoteTime;
     [SerializeField] private float jumpCutMultiplier;
 
+
     private Grounded _grounded;
 
     void Start()
     {
         _grounded = GetComponent<Grounded>();
+        _rb.gravityScale = normalGravity;
 
     }
     public void OnJumpUp()
@@ -39,7 +41,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        _moveInput = Input.GetAxisRaw("Horizontal");
+        _moveInput = Input.GetAxis("Horizontal");
         if(_grounded.IsGrounded())
         {
             lastGroundedTime = jumpCoyoteTime;
