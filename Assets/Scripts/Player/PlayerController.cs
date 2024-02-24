@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpBufferTime;
     [SerializeField] private float jumpCoyoteTime;
     [SerializeField] private float jumpCutMultiplier;
-
+    [SerializeField] private float normalGravity;
 
     private Grounded _grounded;
 
