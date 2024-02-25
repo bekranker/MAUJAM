@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Grass
   layers:
   - Default
   - TransparentFX
@@ -46,4 +47,7 @@ TagManager:
     locked: 0
   - name: Black Area
     uniqueID: 1249771631
+    locked: 0
+  - name: Canvas
+    uniqueID: 1329946873
     locked: 0

@@ -30,10 +30,14 @@ public class PlayerCombat : MonoBehaviour
     {
         //need a raycast with playr current direction
         var direction = _spriteT.localScale.x;
-        RaycastHit2D hit2D = Physics2D.Raycast(transform.position, Vector2.right * direction, 1, _enemyLayer);
-        if (hit2D.collider != null)
+        RaycastHit2D[] hit2D = Physics2D.RaycastAll(transform.position, Vector2.right * direction, 2, _enemyLayer);
+        if (hit2D[0].collider != null)
         {
-            hit2D.collider.gameObject.GetComponent<IEnemy>().TakeDamage(1);
+            foreach (RaycastHit2D enemy in hit2D)
+            {
+                if (enemy.collider == null) continue; 
+                enemy.transform.GetComponent<IEnemy>().TakeDamage(1);
+            }
         }
     }
 }

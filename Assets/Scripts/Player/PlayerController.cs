@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -20,14 +22,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpBufferTime;
     [SerializeField] private float jumpCoyoteTime;
     [SerializeField] private float jumpCutMultiplier;
-    [SerializeField] private float normalGravity;
+    [SerializeField] private float _normalGravity;
+    [SerializeField] private float _fallGravity;
+    [SerializeField] private Transform _spriteT;
+
 
     private Grounded _grounded;
 
     void Start()
     {
         _grounded = GetComponent<Grounded>();
-        _rb.gravityScale = normalGravity;
+        _rb.gravityScale = _normalGravity;
 
     }
     public void OnJumpUp()
@@ -41,7 +46,8 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        _moveInput = Input.GetAxis("Horizontal");
+        _moveInput = Input.GetAxisRaw("Horizontal");
+        CharacterMovementAngle();
         if(_grounded.IsGrounded())
         {
             lastGroundedTime = jumpCoyoteTime;
@@ -61,6 +67,14 @@ public class PlayerController : MonoBehaviour
         {
             OnJumpUp();
         }
+        if (_rb.velocity.y == 0)
+        {
+            _rb.gravityScale = _normalGravity;
+        }
+        if (_rb.velocity.y < -0.1)
+        {
+            _rb.gravityScale = _fallGravity;
+        }
         isJumping = Input.GetButton("Jump") && !_grounded.IsGrounded();
     }
     public void OnJump()
@@ -74,6 +88,7 @@ public class PlayerController : MonoBehaviour
         lastJumpTime = 0;
         isJumping = true;
         jumpInputReleased = false;
+        _spriteT.DOPunchScale(Vector3.one * .35f, 0.3f).OnComplete(() => _spriteT.localScale = Vector3.one).SetEase(Ease.InOutCubic);
     }
     private void FixedUpdate()
     {
@@ -92,5 +107,13 @@ public class PlayerController : MonoBehaviour
        }
 
     }
-    
+    private void CharacterMovementAngle()
+    {
+        if(_moveInput == 0) 
+        {
+            _spriteT.DORotate(Vector3.zero, 0.2f).SetEase(Ease.Linear);
+            return;
+        }
+        _spriteT.DORotate(Vector3.back * 15 * _moveInput, 0.1f).SetEase(Ease.Linear);
+    }
 }
